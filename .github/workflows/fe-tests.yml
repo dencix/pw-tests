@@ -30,6 +30,14 @@ jobs:
 
       - name: Run Playwright FE tests
         run: npx playwright test tests/fe
+        env:
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          TEST_EMAIL2: ${{ secrets.TEST_EMAIL2 }}
+          TEST_PASSWORD2: ${{ secrets.TEST_PASSWORD2 }}
+          TEST_EMAIL3: ${{ secrets.TEST_EMAIL3 }}
+          TEST_PASSWORD3: ${{ secrets.TEST_PASSWORD3 }}
+          BASE_URL: ${{ secrets.BASE_URL }}
 
       - name: Upload FE Test Report
         if: always()
