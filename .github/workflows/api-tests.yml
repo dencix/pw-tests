@@ -2,7 +2,7 @@ name: API Tests
 
 on:
   pull_request:
-    branches: [main]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -25,10 +25,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Run Playwright API tests
-        uses: microsoft/playwright-github-action@v1
-        with:
-          run: npx playwright test tests/api
+        run: npx playwright test tests/api
 
       - name: Upload API Test Report
         if: always()
