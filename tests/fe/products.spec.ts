@@ -1,11 +1,11 @@
 import test, { expect } from "playwright/test";
-import { AllProductsPage } from "../pages/AllProductsPage";
-import { ProductDetailPage } from "../pages/ProductDetailPage";
-import { CartPage } from "../pages/CartPage";
-import { cleanupAfterTest } from "../utils/testCleanUp";
-import { LoginPage } from "../pages/LoginPage";
-import { HeaderComponent } from "../pages/Header";
-import { HomePage } from "../pages/HomePage";
+import { AllProductsPage } from "../../pages/AllProductsPage";
+import { ProductDetailPage } from "../../pages/ProductDetailPage";
+import { CartPage } from "../../pages/CartPage";
+import { cleanupAfterTest } from "../../utils/testCleanUp";
+import { LoginPage } from "../../pages/LoginPage";
+import { HeaderComponent } from "../../pages/Header";
+import { HomePage } from "../../pages/HomePage";
 
 test.describe("Product page test", () => {
   let allProductsPage: AllProductsPage;
@@ -24,16 +24,6 @@ test.describe("Product page test", () => {
     cartPage = new CartPage(page);
 
     await allProductsPage.goto();
-  });
-
-  test.afterEach(async ({ page }) => {
-    await cleanupAfterTest(
-      page,
-      homePage,
-      headerComponent,
-      loginPage,
-      cartPage
-    );
   });
 
   test("should display products page with correct URL and title", async ({

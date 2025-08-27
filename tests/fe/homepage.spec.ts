@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { HomePage } from "../pages/HomePage";
+import { HomePage } from "../../pages/HomePage";
 
 test.describe("Home Page Tests", () => {
   let homePage: HomePage;
@@ -9,13 +9,11 @@ test.describe("Home Page Tests", () => {
     await homePage.goto();
   });
 
-  test("should have title Automaton excerise", async ({ page }) => {
+  test("should have title Automaton excerise", async () => {
     await expect(homePage.getTitle()).resolves.toBe("Automation Exercise");
   });
 
-  test("should display the header with logo and navigation links", async ({
-    page,
-  }) => {
+  test("should display the header with logo and navigation links", async ({}) => {
     const header = homePage.header;
     await expect(header.logo).toBeVisible();
     await expect(header.homeLink).toBeVisible();

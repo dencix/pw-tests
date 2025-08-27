@@ -1,11 +1,11 @@
 import test, { expect } from "playwright/test";
-import { CartPage } from "../pages/CartPage";
-import { AllProductsPage } from "../pages/AllProductsPage";
-import { ProductDetailPage } from "../pages/ProductDetailPage";
-import { LoginPage } from "../pages/LoginPage";
-import { HeaderComponent } from "../pages/Header";
-import { cleanupAfterTest } from "../utils/testCleanUp";
-import { HomePage } from "../pages/HomePage";
+import { CartPage } from "../../pages/CartPage";
+import { AllProductsPage } from "../../pages/AllProductsPage";
+import { ProductDetailPage } from "../../pages/ProductDetailPage";
+import { LoginPage } from "../../pages/LoginPage";
+import { HeaderComponent } from "../../pages/Header";
+import { cleanupAfterTest } from "../../utils/testCleanUp";
+import { HomePage } from "../../pages/HomePage";
 
 test.describe("Add to Cart and Cart Management", () => {
   let cartPage: CartPage;
@@ -14,6 +14,8 @@ test.describe("Add to Cart and Cart Management", () => {
   let loginPage: LoginPage;
   let headerComponent: HeaderComponent;
   let homePage: HomePage;
+  const email = process.env.TEST_EMAIL2!;
+  const password = process.env.TEST_PASSWORD2!;
 
   test.beforeEach(async ({ page }) => {
     cartPage = new CartPage(page);
@@ -24,9 +26,10 @@ test.describe("Add to Cart and Cart Management", () => {
     homePage = new HomePage(page);
   });
 
-  test.afterEach(async ({ page }, testInfo) => {
+  test.afterEach(async () => {
     await cleanupAfterTest(
-      page,
+      email,
+      password,
       homePage,
       headerComponent,
       loginPage,
@@ -159,10 +162,7 @@ test.describe("Add to Cart and Cart Management", () => {
 
     test("should proceed to checkout when logged in", async ({ page }) => {
       await loginPage.goto();
-      await loginPage.login(
-        process.env.TEST_EMAIL!,
-        process.env.TEST_PASSWORD!
-      );
+      await loginPage.login(email, password);
 
       await expect(headerComponent.loggedInUser).toBeVisible();
 

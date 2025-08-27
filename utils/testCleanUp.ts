@@ -5,7 +5,8 @@ import { HomePage } from "../pages/HomePage";
 import { LoginPage } from "../pages/LoginPage";
 
 export async function cleanupAfterTest(
-  page: Page,
+  email: string,
+  password: string,
   homePage: HomePage,
   headerComponent: HeaderComponent,
   loginPage: LoginPage,
@@ -24,8 +25,6 @@ export async function cleanupAfterTest(
   if (!isLoggedIn) {
     await headerComponent.clickSignUpAndLogin();
 
-    const email = process.env.TEST_EMAIL!;
-    const password = process.env.TEST_PASSWORD!;
     await loginPage.login(email, password);
   }
 

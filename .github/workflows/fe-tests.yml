@@ -1,0 +1,38 @@
+name: FE Tests
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  fe-tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Playwright FE tests
+        uses: microsoft/playwright-github-action@v1
+        with:
+          run: npx playwright test tests/fe
+
+      - name: Upload FE Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fe-report-${{ matrix.os }}
+          path: playwright-report/

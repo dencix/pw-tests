@@ -1,9 +1,11 @@
 import test, { expect } from "playwright/test";
-import { LoginPage } from "../pages/LoginPage";
+import { LoginPage } from "../../pages/LoginPage";
 
 test.describe("Login Page Tests", () => {
   let loginPage: LoginPage;
-  const controlUsername = "testuser";
+  const controlUsername = "Test";
+  const email = process.env.TEST_EMAIL3!;
+  const password = process.env.TEST_PASSWORD3!;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
@@ -22,9 +24,6 @@ test.describe("Login Page Tests", () => {
   });
 
   test("should login with valid credentials", async () => {
-    const email = process.env.TEST_EMAIL!;
-    const password = process.env.TEST_PASSWORD!;
-
     await loginPage.login(email, password);
 
     await expect(loginPage.header.loggedInUser).toBeVisible();

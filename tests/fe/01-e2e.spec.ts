@@ -1,14 +1,14 @@
 import test, { expect } from "playwright/test";
-import { AllProductsPage } from "../pages/AllProductsPage";
-import { ProductDetailPage } from "../pages/ProductDetailPage";
-import { LoginPage } from "../pages/LoginPage";
-import { CheckoutPage } from "../pages/CheckoutPage";
-import { PaymentPage } from "../pages/PaymentPage";
-import { HeaderComponent } from "../pages/Header";
-import { CartPage } from "../pages/CartPage";
-import { paymentInfo } from "../utils/testData";
-import { HomePage } from "../pages/HomePage";
-import { cleanupAfterTest } from "../utils/testCleanUp";
+import { AllProductsPage } from "../../pages/AllProductsPage";
+import { ProductDetailPage } from "../../pages/ProductDetailPage";
+import { LoginPage } from "../../pages/LoginPage";
+import { CheckoutPage } from "../../pages/CheckoutPage";
+import { PaymentPage } from "../../pages/PaymentPage";
+import { HeaderComponent } from "../../pages/Header";
+import { CartPage } from "../../pages/CartPage";
+import { paymentInfo } from "../../utils/testData";
+import { HomePage } from "../../pages/HomePage";
+import { cleanupAfterTest } from "../../utils/testCleanUp";
 
 test.describe("Product Details", () => {
   let allProductsPage: AllProductsPage;
@@ -19,6 +19,8 @@ test.describe("Product Details", () => {
   let paymentPage: PaymentPage;
   let headerComponent: HeaderComponent;
   let cartPage: CartPage;
+  const email = process.env.TEST_EMAIL!;
+  const password = process.env.TEST_PASSWORD!;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
@@ -28,12 +30,14 @@ test.describe("Product Details", () => {
     checkoutPage = new CheckoutPage(page);
     paymentPage = new PaymentPage(page);
     headerComponent = new HeaderComponent(page);
+
     homePage = new HomePage(page);
   });
 
-  test.afterEach(async ({ page }, testInfo) => {
+  test.afterEach(async ({}, testInfo) => {
     await cleanupAfterTest(
-      page,
+      email,
+      password,
       homePage,
       headerComponent,
       loginPage,
@@ -50,8 +54,6 @@ test.describe("Product Details", () => {
     await headerComponent.clickSignUpAndLogin();
     await expect(page).toHaveURL(LoginPage.url);
 
-    const email = process.env.TEST_EMAIL!;
-    const password = process.env.TEST_PASSWORD!;
     await loginPage.login(email, password);
     await expect(loginPage.header.loggedInUser).toBeVisible();
 

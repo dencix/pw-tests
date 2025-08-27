@@ -1,8 +1,8 @@
 import test, { expect } from "playwright/test";
-import { LoginPage } from "../pages/LoginPage";
-import { SignUpPage } from "../pages/SignupPage";
-import { AccountCreatedPage } from "../pages/AccountCreatedPage";
-import { SignUpFormData } from "../utils/types";
+import { LoginPage } from "../../pages/LoginPage";
+import { SignUpPage } from "../../pages/SignupPage";
+import { AccountCreatedPage } from "../../pages/AccountCreatedPage";
+import { SignUpFormData } from "../../utils/types";
 
 function generateUniqueUserData(): SignUpFormData {
   const timestamp = Date.now();
