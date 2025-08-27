@@ -38,6 +38,7 @@ jobs:
           TEST_EMAIL3: ${{ secrets.TEST_EMAIL3 }}
           TEST_PASSWORD3: ${{ secrets.TEST_PASSWORD3 }}
           BASE_URL: ${{ secrets.BASE_URL }}
+          CI: "true"
 
       - name: Upload FE Test Report
         if: always()
