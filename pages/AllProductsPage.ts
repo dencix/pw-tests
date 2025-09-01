@@ -63,17 +63,17 @@ export class AllProductsPage extends BasePage {
     await this.firstViewProductLink.click();
   }
 
-  async viewProductByIndex(index: number): Promise<void> {
+  async viewProductByIndex(index: number) {
     await this.getViewProductLinkByIndex(index).click();
   }
 
-  async viewProductById(productId: string): Promise<void> {
+  async viewProductById(productId: string) {
     const viewLink = this.getViewProductLinkById(productId);
     await viewLink.waitFor({ state: "visible" });
     await viewLink.click();
   }
 
-  async viewProductByIdDirect(productId: string): Promise<void> {
+  async viewProductByIdDirect(productId: string) {
     const viewLink = this.getViewProductLink(productId);
     await viewLink.waitFor({ state: "visible" });
     await viewLink.click();
@@ -100,26 +100,26 @@ export class AllProductsPage extends BasePage {
       .first();
   }
 
-  async addToCart(productId: string): Promise<void> {
+  async addToCart(productId: string) {
     await this.getAddToCartButton(productId).click();
     await this.modalContinueButton.waitFor({ state: "visible" });
     await this.modalContinueButton.click();
     await this.addToCartModal.waitFor({ state: "hidden" });
   }
 
-  async addToCartAndViewCart(productId: string): Promise<void> {
+  async addToCartAndViewCart(productId: string) {
     await this.getAddToCartButton(productId).click();
     await this.modalViewCartLink.waitFor({ state: "visible" });
     await this.modalViewCartLink.click();
   }
 
-  async addMultipleProductsToCart(productIds: string[]): Promise<void> {
+  async addMultipleProductsToCart(productIds: string[]) {
     for (const productId of productIds) {
       await this.addToCart(productId);
     }
   }
 
-  async hoverOverProduct(productId: string): Promise<void> {
+  async hoverOverProduct(productId: string) {
     const productWrapper = this.getProductById(productId);
     await productWrapper.hover();
   }

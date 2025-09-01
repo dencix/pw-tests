@@ -26,11 +26,11 @@ export class CheckoutPage extends BasePage {
     const digits = totalText.match(/\d+/g);
     return digits ? Number(digits.join("")) : 0;
   }
-  async addOrderComment(comment: string): Promise<void> {
+  async addOrderComment(comment: string) {
     await this.orderCommentTextarea.fill(comment);
   }
 
-  async clickPlaceOrder(): Promise<void> {
+  async clickPlaceOrder() {
     await this.placeOrderButton.click();
   }
 }

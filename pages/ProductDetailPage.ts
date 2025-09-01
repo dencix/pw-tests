@@ -54,7 +54,7 @@ export class ProductDetailPage extends BasePage {
     );
   }
 
-  async setQuantity(quantity: number): Promise<void> {
+  async setQuantity(quantity: number) {
     await this.quantityInput.clear();
     await this.quantityInput.fill(quantity.toString());
   }
@@ -64,19 +64,19 @@ export class ProductDetailPage extends BasePage {
     return parseInt(value) || 1;
   }
 
-  async addToCart(): Promise<void> {
+  async addToCart() {
     await this.addToCartButton.click();
     await this.modalContinueButton.waitFor({ state: "visible" });
     await this.modalContinueButton.click();
     await this.addToCartModal.waitFor({ state: "hidden" });
   }
 
-  async addToCartWithQuantity(quantity: number): Promise<void> {
+  async addToCartWithQuantity(quantity: number) {
     await this.setQuantity(quantity);
     await this.addToCart();
   }
 
-  async addToCartAndViewCart(): Promise<void> {
+  async addToCartAndViewCart() {
     await this.addToCartButton.click();
     await this.modalViewCartLink.waitFor({ state: "visible" });
     await this.modalViewCartLink.click();

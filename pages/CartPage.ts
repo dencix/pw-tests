@@ -9,6 +9,10 @@ export class CartPage extends BasePage {
   readonly cartTable: Locator;
   readonly cartItems: Locator;
 
+  /**
+   * Creates a new CartPage instance
+   * @param page - The Playwright Page object to interact with
+   */
   constructor(page: Page) {
     super(page);
     this.checkoutButton = page.locator("a.btn.btn-default.check_out");
@@ -19,10 +23,17 @@ export class CartPage extends BasePage {
     this.cartItems = page.locator("#cart_info_table tbody tr");
   }
 
+  /**
+   * Navigates to the cart page /view_cart
+   */
   async goto() {
     await this.navigateTo(CartPage.url);
   }
 
+  /**
+   * Calculates and returns the total price of all items in the cart
+   * @returns Promise that resolves to the total price as a number
+   */
   async getTotalPrice(): Promise<number> {
     const items = await this.cartItems.all();
     let total = 0;
@@ -36,6 +47,10 @@ export class CartPage extends BasePage {
     return total;
   }
 
+  /**
+   * Calculates and returns the total quantity of all items in the cart
+   * @returns Promise that resolves to the total quantity as a number
+   */
   async getTotalQuantity(): Promise<number> {
     const items = await this.cartItems.all();
     let totalQuantity = 0;
@@ -50,7 +65,11 @@ export class CartPage extends BasePage {
     return totalQuantity;
   }
 
-  async removeProductById(productId: string): Promise<void> {
+  /**
+   * Removes a specific product from the cart by its product ID
+   * @param productId - The unique identifier of the product to remove from the cart
+   */
+  async removeProductById(productId: string) {
     const row = this.page.locator(
       `#cart_info_table [data-product-id="${productId}"]`
     );
@@ -58,7 +77,11 @@ export class CartPage extends BasePage {
     await row.waitFor({ state: "detached" });
   }
 
-  async removeAllProducts(): Promise<void> {
+  /**
+   * Removes all products from the cart by iterating through each item
+   * Note: This method navigates to the cart page first and includes delays for stability
+   */
+  async removeAllProducts() {
     await this.goto();
 
     const itemCount = await this.cartItems.count();
@@ -76,7 +99,10 @@ export class CartPage extends BasePage {
     }
   }
 
-  async clickCheckout(): Promise<void> {
+  /**
+   * Clicks the checkout button to proceed to the checkout page
+   */
+  async clickCheckout() {
     await this.checkoutButton.click();
   }
 }

@@ -30,7 +30,7 @@ export class PaymentPage extends BasePage {
     await this.navigateTo(PaymentPage.url);
   }
 
-  async fillPaymentInfo(paymentInfo: PaymentInfo): Promise<void> {
+  async fillPaymentInfo(paymentInfo: PaymentInfo) {
     await this.nameOnCardInput.fill(paymentInfo.nameOnCard);
     await this.cardNumberInput.fill(paymentInfo.cardNumber);
     await this.cvcInput.fill(paymentInfo.cvc);
@@ -38,11 +38,11 @@ export class PaymentPage extends BasePage {
     await this.expiryYearInput.fill(paymentInfo.expiryYear);
   }
 
-  async clickPayButton(): Promise<void> {
+  async clickPayButton() {
     await this.payButton.click();
   }
 
-  async completePayment(paymentInfo: PaymentInfo): Promise<void> {
+  async completePayment(paymentInfo: PaymentInfo) {
     await this.fillPaymentInfo(paymentInfo);
     await this.clickPayButton();
   }
