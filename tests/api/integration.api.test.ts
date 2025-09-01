@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { ApiClient } from "../../api/Client";
-import { TestDataCreation } from "../../api/TestDataCreation";
+import { TestDataCreation } from "../../api/testDataCreation";
 
 test.describe("User Lifecycle Integration Tests", () => {
   let apiClient: ApiClient;

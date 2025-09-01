@@ -1,4 +1,4 @@
-import { PaymentInfo } from "../pages/PaymentPage";
+import { PaymentInfo } from "./types";
 
 export const paymentInfo: PaymentInfo = {
   nameOnCard: "Test User",
