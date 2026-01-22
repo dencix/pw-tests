@@ -50,7 +50,7 @@ test.describe("Product Details", () => {
   test("Happy path e2e test - login, go to products, show detail, add to cart, checkout, log out", async ({
     page,
   }) => {
-    await homePage.goto();
+    await homePage.goTo();
     await headerComponent.clickSignUpAndLogin();
     await expect(page).toHaveURL(LoginPage.url);
 
@@ -79,7 +79,7 @@ test.describe("Product Details", () => {
     await expect(cartPage.cartTable).toBeVisible();
 
     const totalQuantity = await cartPage.getTotalQuantity();
-    await expect(totalQuantity).toBe(3);
+    await expect(totalQuantity).toBe(quantity + 1);
     let expectedTotal = firstProductPrice + secondProductPrice;
     await expect(expectedTotal).toBe(await cartPage.getTotalPrice());
 
@@ -92,7 +92,7 @@ test.describe("Product Details", () => {
     await expect(page).toHaveURL(CheckoutPage.url);
     await checkoutPage.totalAmountPrice.scrollIntoViewIfNeeded();
     await expect(checkoutPage.totalAmountPrice).toBeVisible();
-    //
+
     let checkoutTotal = await checkoutPage.getTotalAmount();
 
     await expect(checkoutTotal).toBeTruthy();

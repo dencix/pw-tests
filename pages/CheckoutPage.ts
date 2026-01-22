@@ -17,7 +17,7 @@ export class CheckoutPage extends BasePage {
     this.orderCommentTextarea = page.locator('textarea[name="message"]');
   }
 
-  async goto() {
+  async goTo() {
     await this.navigateTo(CheckoutPage.url);
   }
 

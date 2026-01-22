@@ -23,7 +23,7 @@ test.describe("Product page test", () => {
     homePage = new HomePage(page);
     cartPage = new CartPage(page);
 
-    await allProductsPage.goto();
+    await allProductsPage.goTo();
   });
 
   test("should display products page with correct URL and title", async ({
@@ -98,7 +98,7 @@ test.describe("Product Detail Navigation", () => {
     page,
   }) => {
     const allProductsPage = new AllProductsPage(page);
-    await allProductsPage.goto();
+    await allProductsPage.goTo();
 
     await allProductsPage.getViewProductLink("1").click();
 
@@ -121,7 +121,7 @@ test.describe("Product Detail Navigation", () => {
     page,
   }) => {
     const allProductsPage = new AllProductsPage(page);
-    await allProductsPage.goto();
+    await allProductsPage.goTo();
 
     await allProductsPage.getViewProductLink("1").click();
 
@@ -143,7 +143,7 @@ test.describe("Product Detail Navigation", () => {
     const allProductsPage = new AllProductsPage(page);
     const cartPage = new CartPage(page);
 
-    await allProductsPage.goto();
+    await allProductsPage.goTo();
     await allProductsPage.getViewProductLink("1").click();
 
     const productDetailPage = new ProductDetailPage(page);
@@ -151,7 +151,7 @@ test.describe("Product Detail Navigation", () => {
     const testQuantity = 3;
     await productDetailPage.addToCartWithQuantity(testQuantity);
 
-    await cartPage.goto();
+    await cartPage.goTo();
     const cartQuantity = await cartPage.getTotalQuantity();
     expect(cartQuantity).toBe(testQuantity);
   });

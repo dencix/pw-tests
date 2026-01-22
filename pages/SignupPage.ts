@@ -37,7 +37,7 @@ export class SignUpPage extends BasePage {
     this.submitButton = page.locator('[data-qa="create-account"]');
   }
 
-  async goto() {
+  async goTo() {
     await this.navigateTo("/signup");
   }
 

@@ -23,7 +23,7 @@ test.describe("Product Details", () => {
     homePage = new HomePage(page);
     cartPage = new CartPage(page);
 
-    await allProductsPage.goto();
+    await allProductsPage.goTo();
     await allProductsPage.getViewProductLink("1").click();
     await expect(page).toHaveURL("/product_details/1");
   });

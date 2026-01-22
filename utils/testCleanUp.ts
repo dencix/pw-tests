@@ -18,7 +18,7 @@ export async function cleanupAfterTest(
     return;
   }
 
-  await homePage.goto();
+  await homePage.goTo();
 
   const isLoggedIn = await headerComponent.isUserLoggedIn();
 

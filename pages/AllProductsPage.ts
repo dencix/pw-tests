@@ -1,3 +1,4 @@
+import { parsePrice } from "../utils/parsePrice";
 import { BasePage } from "./BasePage";
 import { Page, Locator, expect } from "@playwright/test";
 
@@ -20,7 +21,7 @@ export class AllProductsPage extends BasePage {
     this.modalViewCartLink = page.locator('.modal-body a[href="/view_cart"]');
   }
 
-  async goto() {
+  async goTo() {
     await this.navigateTo(AllProductsPage.url);
   }
 
@@ -53,6 +54,12 @@ export class AllProductsPage extends BasePage {
       .locator('xpath=ancestor::div[contains(@class, "product-image-wrapper")]')
       .locator('a[href^="/product_details/"]')
       .first();
+  }
+  async getProductPrice(productId: string): Promise<number> {
+    const productWrapper = this.getProductById(productId);
+    const priceText =
+      (await productWrapper.locator(".productinfo h2").textContent()) || "";
+    return parsePrice(priceText);
   }
 
   get firstViewProductLink(): Locator {

@@ -11,6 +11,7 @@ export class LoginPage extends BasePage {
   readonly signUpName: Locator;
   readonly signUpEmail: Locator;
   readonly signUpButton: Locator;
+  readonly errorSignUp: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -23,9 +24,10 @@ export class LoginPage extends BasePage {
     this.signUpName = page.locator('[data-qa="signup-name"]');
     this.signUpEmail = page.locator('[data-qa="signup-email"]');
     this.signUpButton = page.locator('[data-qa="signup-button"]');
+    this.errorSignUp = page.locator("text=Email Address already exist!");
   }
 
-  async goto() {
+  async goTo() {
     await this.navigateTo(LoginPage.url);
   }
 

@@ -26,7 +26,7 @@ export class CartPage extends BasePage {
   /**
    * Navigates to the cart page /view_cart
    */
-  async goto() {
+  async goTo() {
     await this.navigateTo(CartPage.url);
   }
 
@@ -79,10 +79,10 @@ export class CartPage extends BasePage {
 
   /**
    * Removes all products from the cart by iterating through each item
-   * Note: This method navigates to the cart page first and includes delays for stability
+   *
    */
   async removeAllProducts() {
-    await this.goto();
+    await this.goTo();
 
     const itemCount = await this.cartItems.count();
 
@@ -94,7 +94,7 @@ export class CartPage extends BasePage {
 
       if (productId) {
         await this.removeProductById(productId);
-        await this.page.waitForTimeout(500);
+        //await this.page.waitForTimeout(500);
       }
     }
   }

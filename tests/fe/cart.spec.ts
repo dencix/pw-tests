@@ -39,7 +39,7 @@ test.describe("Add to Cart and Cart Management", () => {
 
   test.describe("Add to Cart Functionality", () => {
     test("should add product from product listing page", async () => {
-      await allProductsPage.goto();
+      await allProductsPage.goTo();
       await allProductsPage.getAddToCartButton("1").click();
 
       await expect(allProductsPage.addToCartModal).toBeVisible();
@@ -50,22 +50,20 @@ test.describe("Add to Cart and Cart Management", () => {
       await expect(allProductsPage.addToCartModal).toBeHidden();
     });
 
-    test("should add product with custom quantity from product details", async ({
-      page,
-    }) => {
-      await allProductsPage.goto();
+    test("should add product with custom quantity from product details", async () => {
+      await allProductsPage.goTo();
       await allProductsPage.getViewProductLink("1").click();
 
       const testQuantity = 3;
       await productDetailPage.addToCartWithQuantity(testQuantity);
 
-      await cartPage.goto();
+      await cartPage.goTo();
       const cartQuantity = await cartPage.getTotalQuantity();
       expect(cartQuantity).toBe(testQuantity);
     });
 
     test("should navigate directly to cart from modal", async ({ page }) => {
-      await allProductsPage.goto();
+      await allProductsPage.goTo();
       await allProductsPage.addToCartAndViewCart("1");
 
       await expect(page).toHaveURL(CartPage.url);
@@ -77,7 +75,7 @@ test.describe("Add to Cart and Cart Management", () => {
 
   test.describe("Cart Management", () => {
     test("should display empty cart", async ({ page }) => {
-      await cartPage.goto();
+      await cartPage.goTo();
       await expect(page).toHaveURL(CartPage.url);
       await expect(cartPage.emptyCart).toBeVisible();
 
@@ -86,11 +84,11 @@ test.describe("Add to Cart and Cart Management", () => {
     });
 
     test("should display multiple cart items", async ({ page }) => {
-      await allProductsPage.goto();
+      await allProductsPage.goTo();
       await allProductsPage.addToCart("1");
       await allProductsPage.addToCart("2");
 
-      await cartPage.goto();
+      await cartPage.goTo();
       const itemCount = await cartPage.cartItems.count();
       expect(itemCount).toBe(2);
 
@@ -99,24 +97,27 @@ test.describe("Add to Cart and Cart Management", () => {
     });
 
     test("should calculate total price correctly", async ({ page }) => {
-      await allProductsPage.goto();
+      await allProductsPage.goTo();
+
+      const productPrice = await allProductsPage.getProductPrice("1");
+
       await allProductsPage.addToCart("1");
       await allProductsPage.addToCart("1");
 
-      await cartPage.goto();
+      await cartPage.goTo();
 
       const totalQuantity = await cartPage.getTotalQuantity();
       expect(totalQuantity).toBe(2);
 
       const totalPrice = await cartPage.getTotalPrice();
-      expect(totalPrice).toBeGreaterThan(0);
+      expect(totalPrice).toBe(productPrice * 2);
     });
 
     test("should remove items from cart", async ({ page }) => {
-      await allProductsPage.goto();
+      await allProductsPage.goTo();
       await allProductsPage.addToCart("1");
 
-      await cartPage.goto();
+      await cartPage.goTo();
       let itemCount = await cartPage.cartItems.count();
       expect(itemCount).toBe(1);
 
@@ -130,10 +131,10 @@ test.describe("Add to Cart and Cart Management", () => {
     test("should show login modal when clicking checkout without being logged in", async ({
       page,
     }) => {
-      await allProductsPage.goto();
+      await allProductsPage.goTo();
       await allProductsPage.addToCart("1");
 
-      await cartPage.goto();
+      await cartPage.goTo();
 
       await expect(cartPage.checkoutButton).toBeVisible();
       await cartPage.clickCheckout();
@@ -161,15 +162,15 @@ test.describe("Add to Cart and Cart Management", () => {
     });
 
     test("should proceed to checkout when logged in", async ({ page }) => {
-      await loginPage.goto();
+      await loginPage.goTo();
       await loginPage.login(email, password);
 
       await expect(headerComponent.loggedInUser).toBeVisible();
 
-      await allProductsPage.goto();
+      await allProductsPage.goTo();
       await allProductsPage.addToCart("1");
 
-      await cartPage.goto();
+      await cartPage.goTo();
 
       await expect(cartPage.checkoutButton).toBeVisible();
       await cartPage.clickCheckout();
@@ -179,12 +180,12 @@ test.describe("Add to Cart and Cart Management", () => {
     test("should handle multiple quantities of same product", async ({
       page,
     }) => {
-      await allProductsPage.goto();
+      await allProductsPage.goTo();
 
       const productIds = ["1", "1", "1"];
       await allProductsPage.addMultipleProductsToCart(productIds);
 
-      await cartPage.goto();
+      await cartPage.goTo();
 
       const totalQuantity = await cartPage.getTotalQuantity();
       expect(totalQuantity).toBe(3);

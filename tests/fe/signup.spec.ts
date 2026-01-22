@@ -30,12 +30,13 @@ test.describe("Signup Page Tests", () => {
   let signUpPage: SignUpPage;
   let formData: SignUpFormData;
   let controlUsername: string;
+  let duplicityEmail: string;
 
   test.beforeEach(async ({ page }) => {
     formData = generateUniqueUserData();
     controlUsername = formData.name;
     loginPage = new LoginPage(page);
-    await loginPage.goto();
+    await loginPage.goTo();
   });
 
   test("should display pre-signup form", async () => {
@@ -48,5 +49,11 @@ test.describe("Signup Page Tests", () => {
     signUpPage = await loginPage.preSignUp(formData.name, formData.email);
     await signUpPage.signUp(formData);
     await expect(page).toHaveURL(AccountCreatedPage.url);
+  });
+
+  test("signup should fail with duplicity email", async () => {
+    duplicityEmail = process.env.EMAIL || "test@tdh.cz";
+    signUpPage = await loginPage.preSignUp("test user", duplicityEmail);
+    await expect(loginPage.errorSignUp).toBeVisible();
   });
 });

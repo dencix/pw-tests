@@ -6,7 +6,7 @@ export class HomePage extends BasePage {
     super(page);
   }
 
-  async goto() {
+  async goTo() {
     await this.navigateTo("/");
   }
 

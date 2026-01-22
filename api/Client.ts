@@ -27,7 +27,9 @@ export class ApiClient {
       if (response.headers()["content-type"]?.includes("application/json")) {
         data = JSON.parse(text);
       }
-    } catch (error) {}
+    } catch (error) {
+      //console.error(error);
+    }
 
     return { response, data, text };
   }

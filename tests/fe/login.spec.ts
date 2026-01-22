@@ -9,7 +9,7 @@ test.describe("Login Page Tests", () => {
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    await loginPage.goto();
+    await loginPage.goTo();
   });
 
   test("should display login form", async () => {

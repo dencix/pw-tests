@@ -8,12 +8,13 @@ export default defineConfig({
   testDir: "./tests",
   fullyParallel: true,
   timeout: 60_000,
+  retries: 2,
   reporter: "html",
   use: {
     baseURL: process.env.BASE_URL,
     trace: "on-first-retry",
     screenshot: "only-on-failure",
-    headless: true,
+    headless: false,
   },
   projects: [
     {

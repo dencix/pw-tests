@@ -26,7 +26,7 @@ export class PaymentPage extends BasePage {
     this.paymentForm = page.locator("#payment-form");
   }
 
-  async goto() {
+  async goTo() {
     await this.navigateTo(PaymentPage.url);
   }
 

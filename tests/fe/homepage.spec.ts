@@ -6,7 +6,7 @@ test.describe("Home Page Tests", () => {
 
   test.beforeEach(async ({ page }) => {
     homePage = new HomePage(page);
-    await homePage.goto();
+    await homePage.goTo();
   });
 
   test("should have title Automaton excerise", async () => {

@@ -1,3 +1,5 @@
+import { APIResponse } from "playwright/test";
+
 export interface SignUpFormData {
   title: "Mr" | "Mrs";
   name: string;
@@ -51,7 +53,7 @@ export interface Product {
 }
 
 export interface ApiResponse<T = any> {
-  response: import("@playwright/test").APIResponse;
+  response: APIResponse;
   data: T | null;
   text: string;
 }
